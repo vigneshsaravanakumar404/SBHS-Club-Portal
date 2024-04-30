@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
+import { redirect } from 'next/navigation';
 require("./style.css");
 
 const acceptedIPs = ["173.63.234.100"];
@@ -56,7 +57,7 @@ export function Header() {
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Avatar>
-                                <img src={image} alt="Avatar" />
+                                <img src={image} alt="Avatar" referrerPolicy="no-referrer" />
                                 <AvatarFallback>{name?.charAt(0)}</AvatarFallback>
                             </Avatar>
                         </DropdownMenuTrigger>
@@ -77,9 +78,8 @@ export function Header() {
             </nav>
         );
 
-    } else {
-        return null;
     }
+    return null;
 }
 
 export function Body() {
@@ -91,41 +91,58 @@ export function Body() {
             .then(data => setIp(data.ip));
     }, []);
     const trigger = !acceptedIPs.includes(ip);
+    const { data: session } = useSession();
 
-    return (
-        <div className="body">
-            <p>Your ip is {ip}</p>
-            {trigger ? <p>Unauthorized</p> : null}
-            {!trigger ? <p>Authorized</p> : null}
-        </div>
-    );
+    if (session) {
+
+        const { user } = session;
+        const name = user?.name ?? 'Anonymous';
+        const image = user?.image ?? 'https://cdn-icons-png.flaticon.com/512/20/20079.png';
+
+        return (
+            <div className="body">
+                <p>Your ip is {ip}</p>
+                {trigger ? <p>Unauthorized</p> : null}
+                {!trigger ? <p>Authorized</p> : null}
+            </div>
+        );
+    }
+    return null;
 
 }
 
 export function Footer() {
-    return (
-        <footer className="footer">
-            <div className="authors">
-                {authors.map(({ name, gitHub }) => (
-                    <div key={name}>
-                        <a href={gitHub} target="_blank" rel="noopener noreferrer">{name}</a>
-                    </div>
-                ))}
-            </div>
-        </footer>
-    );
+    const { data: session } = useSession();
+
+    if (session) {
+        return (
+            <footer className="footer">
+                <div className="authors">
+                    {authors.map(({ name, gitHub }) => (
+                        <div key={name}>
+                            <a href={gitHub} target="_blank" rel="noopener noreferrer">{name}</a>
+                        </div>
+                    ))}
+                </div>
+            </footer>
+        );
+    }
+    return null;
 }
 
 
-
-
 export default function Page() {
+    const { data: session } = useSession();
 
-    return (
-        <div>
-            <Header />
-            <Body />
-            <Footer />
-        </div>
-    );
+    if (session === null) {
+        redirect("/");
+    } else {
+        return (
+            <div>
+                <Header />
+                <Body />
+                <Footer />
+            </div>
+        );
+    }
 }
