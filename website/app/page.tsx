@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 export default async function Home() {
   const session = await getServerSession();
   if(session){
-    redirect("/clubs")
+    redirect("/dashboard")
   }
   return (
     <div className="flex flex-col md:flex-row items-center justify-center min-h-screen text-gray-800">
