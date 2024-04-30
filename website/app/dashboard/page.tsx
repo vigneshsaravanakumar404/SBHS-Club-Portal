@@ -21,8 +21,13 @@ const links = [
     { href: '/dashboard', label: 'Join' }
 ];
 
+const authors = [
+    { name: 'Krish Renjen', gitHub: "https://github.com/krishrenjen" },
+    { name: 'Vignesh Saravanakumar', gitHub: "https://github.com/vigneshsaravanakumar404" }
+];
 
-function Header() {
+
+export function Header() {
 
     const { data: session } = useSession();
 
@@ -77,8 +82,7 @@ function Header() {
     }
 }
 
-export default function Page() {
-
+export function Body() {
 
     const [ip, setIp] = useState<string>("");
     useEffect(() => {
@@ -88,13 +92,40 @@ export default function Page() {
     }, []);
     const trigger = !acceptedIPs.includes(ip);
 
-
     return (
-        <div>
-            {Header()}
+        <div className="body">
             <p>Your ip is {ip}</p>
             {trigger ? <p>Unauthorized</p> : null}
             {!trigger ? <p>Authorized</p> : null}
+        </div>
+    );
+
+}
+
+export function Footer() {
+    return (
+        <footer className="footer">
+            <div className="authors">
+                {authors.map(({ name, gitHub }) => (
+                    <div key={name}>
+                        <a href={gitHub} target="_blank" rel="noopener noreferrer">{name}</a>
+                    </div>
+                ))}
+            </div>
+        </footer>
+    );
+}
+
+
+
+
+export default function Page() {
+
+    return (
+        <div>
+            <Header />
+            <Body />
+            <Footer />
         </div>
     );
 }

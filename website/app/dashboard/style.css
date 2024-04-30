@@ -91,3 +91,38 @@
         display: flex;
     }
 }
+
+/* Body */
+.body {
+    padding: 20px;
+}
+
+
+/* Footer */
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    margin-top: 20px;
+    text-align: center; /* Center align text */
+}
+
+.authors {
+    display: flex;
+    flex-wrap: wrap; /* Allow authors to wrap */
+    justify-content: center; /* Center align authors */
+}
+
+.authors div {
+    margin: 5px; /* Add spacing between author blocks */
+}
+
+.authors a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.authors a:hover {
+    color: #ccc; /* Change color on hover */
+}
