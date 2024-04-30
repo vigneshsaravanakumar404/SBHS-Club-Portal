@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 
 export default async function Home() {
   const session = await getServerSession();
-  if(session){
+  if (session) {
     redirect("/dashboard")
   }
   return (
@@ -15,14 +15,14 @@ export default async function Home() {
         <h1 className="text-3xl md:text-4xl text-center font-bold">South Brunswick High School</h1>
         <h1 className="text-2xl md:text-3xl text-center font-semibold">Attendance</h1>
       </div>
-      <div className="mt-8 flex flex-col mx-2  items-center w-5/6 gap-2 md:gap-4">        
-        <SignInButton/>
+      <div className="mt-8 flex flex-col mx-2  items-center w-5/6 gap-2 md:gap-4">
+        <SignInButton />
         <p className="text-center">Make sure to log in with your <GradientText>@sbschools.org</GradientText> or <GradientText>@sbstudents.org</GradientText> account</p>
       </div>
     </div>
   );
 }
 
-function GradientText({children} : {children: ReactNode}){
+function GradientText({ children }: { children: ReactNode }) {
   return <span className="bg-gradient-to-r from-blue-600  to-indigo-400 inline-block text-transparent bg-clip-text font-bold">{children}</span>
 }
