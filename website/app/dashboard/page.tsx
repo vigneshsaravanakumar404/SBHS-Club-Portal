@@ -10,9 +10,16 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { useSession } from 'next-auth/react';
+import { useState, useEffect } from 'react';
 require("./style.css");
 
+const acceptedIPs = ["173.63.234.100"];
 
+const links = [
+    { href: '/dashboard', label: 'Dashboard' },
+    { href: '/logs', label: 'Logs' },
+    { href: '/dashboard', label: 'Join' }
+];
 
 
 function Header() {
@@ -25,7 +32,6 @@ function Header() {
         const name = user?.name ?? 'Anonymous';
         const image = user?.image ?? 'https://cdn-icons-png.flaticon.com/512/20/20079.png';
 
-
         return (
             <nav className="navbar">
                 <div className="nav-header">
@@ -35,10 +41,11 @@ function Header() {
                     <button className="toggle-button">&#9776;</button> {/* Hamburger icon */}
                 </div>
                 <ul className="nav-links">
-                    <li><a href="\dashboard">Home</a></li>
-                    <li><a href="\dashboard">About</a></li>
-                    <li><a href="\dashboard">Services</a></li>
-                    <li><a href="\dashboard">Contact</a></li>
+                    {links.map(({ href, label }) => (
+                        <li key={`${href}${label}`}>
+                            <a href={href}>{label}</a>
+                        </li>
+                    ))}
                 </ul>
                 <div className="avatar">
                     <DropdownMenu>
@@ -71,9 +78,23 @@ function Header() {
 }
 
 export default function Page() {
+
+
+    const [ip, setIp] = useState<string>("");
+    useEffect(() => {
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => setIp(data.ip));
+    }, []);
+    const trigger = !acceptedIPs.includes(ip);
+
+
     return (
         <div>
             {Header()}
+            <p>Your ip is {ip}</p>
+            {trigger ? <p>Unauthorized</p> : null}
+            {!trigger ? <p>Authorized</p> : null}
         </div>
     );
 }
