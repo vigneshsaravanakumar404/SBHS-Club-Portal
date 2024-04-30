@@ -26,7 +26,6 @@ function Header() {
         const image = user?.image ?? 'https://cdn-icons-png.flaticon.com/512/20/20079.png';
 
 
-
         return (
             <nav className="navbar">
                 <div className="nav-header">
