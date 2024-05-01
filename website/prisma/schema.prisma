@@ -13,13 +13,51 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id String @id @default(dbgenerated("concat('usr_', replace(cast(gen_random_uuid() as text), '-', ''))"))
-  email String @unique
-  name String?
-  avatar String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+enum Role {
+  DEFAULT
+  TEACHER
+  ADVISOR
+  ADMIN
 }
 
+enum AssociationType {
+  NONE
+  CLUB
+  SPORT
+  OTHER
+}
 
+model Association {
+  association_id String          @id @default(dbgenerated("concat('ast_', replace(cast(gen_random_uuid() as text), '-', ''))"))
+  name           String
+  type           AssociationType
+  checkIns       CheckIn[]
+  advisors       User[]          @relation("advisor")
+  leadership     User[]          @relation("leadership")
+}
+
+model CheckIn {
+  checkin_id     String      @id @default(dbgenerated("concat('evt_', replace(cast(gen_random_uuid() as text), '-', ''))"))
+  name           String      @default("A generic event")
+  locationIP     Boolean     @default(true)
+  locationGEO    Boolean     @default(false)
+  association_id String 
+  associatedWith Association? @relation(fields: [association_id], references: [association_id])
+  code           String?
+  expires        DateTime
+  checkedIn      User[]
+}
+
+model User {
+  user_id       String        @id @default(dbgenerated("concat('usr_', replace(cast(gen_random_uuid() as text), '-', ''))"))
+  email         String        @unique
+  schoolId      String?
+  name          String?
+  avatar        String?
+  checkedIn     CheckIn[]
+  role          Role          @default(DEFAULT)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  advisorFor    Association[] @relation("advisor")
+  leadershipFor Association[] @relation("leadership")
+}

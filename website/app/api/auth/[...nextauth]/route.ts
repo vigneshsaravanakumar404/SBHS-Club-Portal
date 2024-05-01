@@ -1,11 +1,12 @@
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import prisma from '@/lib/db'
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
+
+const allowedDomains = ["gmail.com", "sbschools.org", "sbstudents.org"];
 
 const authOption: NextAuthOptions = {
   session: {
@@ -37,15 +38,21 @@ const authOption: NextAuthOptions = {
         create: {
           email: profile.email,
           name: profile.name,
+          avatar: profile.image
         },
         update: {
           name: profile.name,
+          avatar: profile.image
         },
       });
 
       if (account?.provider === "google") {
+        // Get the domain of the email
+        const domain = profile.email.split("@")[1];
+
+        // Check if the domain is in the allowedDomains list
         //@ts-ignore
-        return profile.email_verified && profile.email.endsWith("@gmail.com");
+        return profile.email_verified && allowedDomains.includes(domain);
       }
       return true;
     },

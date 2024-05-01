@@ -24,5 +24,5 @@ export default async function Home() {
 }
 
 function GradientText({children} : {children: ReactNode}){
-  return <span className="bg-gradient-to-r from-blue-600  to-indigo-400 inline-block text-transparent bg-clip-text font-bold">{children}</span>
+  return <span className="bg-gradient-to-r from-[#AA771C] via-[#B38728] to-[#BF953F] inline-block text-transparent bg-clip-text font-bold">{children}</span>
 }
