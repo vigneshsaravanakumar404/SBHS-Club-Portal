@@ -1,8 +1,8 @@
 "use client"
 import { useEffect, useState } from 'react';
 
-const latitudeSB = 40.3739171
-const longitudeSB = -74.5652748
+const latitudeSB = 40.373631
+const longitudeSB = -74.563698
 
 export default function Location() {
 

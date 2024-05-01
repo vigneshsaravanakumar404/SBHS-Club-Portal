@@ -7,23 +7,19 @@ import { Checkbox } from "../ui/checkbox";
 import { Association } from "@prisma/client";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from "react";
-import { redirect } from "next/dist/server/api-utils";
+import { useRouter } from 'next/navigation'
+import CreateCheckIn from "@/lib/actions/CreateCheckIn";
 
 interface CreateCheckInProps {
   associations: Association[];
 }
 
 export default function CreateEvent(props: CreateCheckInProps) {
-  var now: Date = new Date();
-  now = new Date(now.getTime() + 30 * 60000);
 
-  var hours = now.getHours().toString().padStart(2, "0");
-  var minutes = now.getMinutes().toString().padStart(2, "0");
-  var timeString = `${hours}:${minutes}`;
+  const router = useRouter()
 
   const [checkInName, setCheckInName] = useState("");
   const [association, setAssociation] = useState("NO ASSOCIATION");
-  const [validUntil, setValidUntil] = useState(timeString);
   const [locationIP, setLocationIP] = useState(true);
   const [locationGEO, setLocationGEO] = useState(false);
 
@@ -31,30 +27,17 @@ export default function CreateEvent(props: CreateCheckInProps) {
     if(checkInName == "" || checkInName == " "){
       alert("Please select a name")
     }else{
-      const response = await fetch('/api/createEvent', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: checkInName,
-          associationId: association,
-          validUntil,
-          locationIP,
-          locationGEO,
-        }),
+      const response = await CreateCheckIn({
+        name: checkInName,
+        association_id: association,
+        locationIP: locationIP,
+        locationGEO: locationGEO
       });
-    
-      if (!response.ok) {
 
-        // Handle error
-        console.error('Failed to create check in');
-      } else {
+      if(response.success){
+        const event = response.event
 
-        const data = await response.json()
-        console.log(data)
-        // Handle success
-        console.log('Check in created successfully');
+        router.push("/dashboard/checkin/" + event?.checkin_id)
       }
     }
     
@@ -96,9 +79,6 @@ export default function CreateEvent(props: CreateCheckInProps) {
                     ))}
                   </SelectContent>
                 </Select>
-
-                <Label htmlFor="time">Valid Until</Label>
-                <Input id="time" step={60} type="time" defaultValue={timeString} onChange={(e) => setValidUntil(e.target.value)} />
 
                 <div className="flex flex-row gap-2 items-center">
                   <Checkbox id="location-ip" defaultChecked={true} onCheckedChange={(checked) => setLocationIP(checked == "indeterminate" ? false : checked)}/>

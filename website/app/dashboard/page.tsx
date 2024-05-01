@@ -105,7 +105,7 @@ export default async function Page() {
       <br />
       {Content()}
       {allowedToCreateEvent && user && <CreateEvent associations={user.leadershipFor.concat(user.advisorFor)}/>}
-      {user ? JSON.stringify(await user) : "peep"}
+      {user ? JSON.stringify(await user) : "how did you get here"}
     </div>
   );
 }

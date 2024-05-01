@@ -8,7 +8,7 @@ const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 
 const allowedDomains = ["gmail.com", "sbschools.org", "sbstudents.org"];
 
-const authOption: NextAuthOptions = {
+export const authOption: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },

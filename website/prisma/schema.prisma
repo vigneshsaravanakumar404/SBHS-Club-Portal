@@ -37,27 +37,33 @@ model Association {
 }
 
 model CheckIn {
-  checkin_id     String      @id @default(dbgenerated("concat('evt_', replace(cast(gen_random_uuid() as text), '-', ''))"))
-  name           String      @default("A generic event")
-  locationIP     Boolean     @default(true)
-  locationGEO    Boolean     @default(false)
-  association_id String 
+  checkin_id     String       @id @default(dbgenerated("concat('evt_', replace(cast(gen_random_uuid() as text), '-', ''))"))
+  name           String       @default("A generic event")
+  locationIP     Boolean      @default(true)
+  locationGEO    Boolean      @default(false)
+  association_id String?
   associatedWith Association? @relation(fields: [association_id], references: [association_id])
-  code           String?
-  expires        DateTime
-  checkedIn      User[]
+  code           String?      @unique
+  createdAt      DateTime     @default(now())
+  createdBy      User         @relation(fields: [owner_id], references: [user_id])
+  owner_id       String       
+  sharedWith     User[]       @relation("sharedWith")
+  checkedIn      User[]       @relation("checkedIn")
+  active         Boolean      @default(true)
 }
 
 model User {
-  user_id       String        @id @default(dbgenerated("concat('usr_', replace(cast(gen_random_uuid() as text), '-', ''))"))
-  email         String        @unique
-  schoolId      String?
-  name          String?
-  avatar        String?
-  checkedIn     CheckIn[]
-  role          Role          @default(DEFAULT)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  advisorFor    Association[] @relation("advisor")
-  leadershipFor Association[] @relation("leadership")
+  user_id            String        @id @default(dbgenerated("concat('usr_', replace(cast(gen_random_uuid() as text), '-', ''))"))
+  email              String        @unique
+  schoolId           String?
+  name               String?
+  avatar             String?
+  checkedIn          CheckIn[]     @relation("checkedIn")
+  role               Role          @default(DEFAULT)
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+  advisorFor         Association[] @relation("advisor")
+  leadershipFor      Association[] @relation("leadership")
+  createdCheckIns    CheckIn[]
+  sharedWithCheckIns CheckIn[]     @relation("sharedWith")
 }
