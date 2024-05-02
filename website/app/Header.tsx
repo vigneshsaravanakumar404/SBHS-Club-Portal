@@ -12,7 +12,6 @@ import {
 require("./style.css");
 
 
-
 const links = [
     { href: '/dashboard', label: 'Dashboard' },
     { href: '/logs', label: 'Logs' },
@@ -58,9 +57,9 @@ export default function Header() {
                             <div className="button-container">
                                 <Button variant="secondary" asChild style={{ width: "100%" }}>
                                     <a href="/settings">Settings</a>
-                                </Button>
+                                </Button>ac
                                 <Button variant="secondary" asChild style={{ width: "100%" }}>
-                                    <a href="/logout">Logout</a>
+                                    <a href="/api/auth/signout">Logout</a>
                                 </Button>
                             </div>
                         </DropdownMenuContent>
