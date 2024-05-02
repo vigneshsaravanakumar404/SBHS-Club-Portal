@@ -8,7 +8,7 @@ import Footer from "./../Footer";
 require("./style.css");
 
 
-const acceptedIPs = ["173.63.234.100"];
+const acceptedIPs = "50.206.77.";
 
 export function Body() {
 
@@ -18,7 +18,7 @@ export function Body() {
             .then(response => response.json())
             .then(data => setIp(data.ip));
     }, []);
-    const trigger = !acceptedIPs.includes(ip);
+    const trigger = !ip.startsWith(acceptedIPs);
     const { data: session } = useSession();
 
     if (session) {
