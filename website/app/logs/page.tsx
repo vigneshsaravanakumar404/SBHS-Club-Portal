@@ -4,15 +4,6 @@ import Header from "./../Header";
 import Footer from "./../Footer";
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
 require("./style.css");
 
 
@@ -24,93 +15,111 @@ const tableData = [
         success: true,
     },
     {
-        unixTimeStamp: "1629872400",
+        unixTimeStamp: "1629871200",
         club: "Club B",
         description: "Consectetur adipiscing elit",
         success: false,
     },
     {
-        unixTimeStamp: "1629873600",
+        unixTimeStamp: "1629871200",
         club: "Club C",
         description: "Sed do eiusmod tempor incididunt",
         success: true,
     },
     {
-        unixTimeStamp: "1629874800",
+        unixTimeStamp: "1629871200",
         club: "Club D",
         description: "Ut labore et dolore magna aliqua",
         success: false,
     },
     {
-        unixTimeStamp: "1629876000",
+        unixTimeStamp: "1629871200",
         club: "Club E",
         description: "Ut enim ad minim veniam",
         success: true,
     },
     {
-        unixTimeStamp: "1629877200",
+        unixTimeStamp: "1629871200",
         club: "Club F",
         description: "Quis nostrud exercitation ullamco",
         success: false,
     },
     {
-        unixTimeStamp: "1629878400",
+        unixTimeStamp: "1629871200",
         club: "Club G",
         description: "Laboris nisi ut aliquip ex ea commodo",
         success: true,
     },
     {
-        unixTimeStamp: "1629879600",
+        unixTimeStamp: "1629871200",
         club: "Club H",
         description: "Duis aute irure dolor in reprehenderit",
         success: false,
     },
     {
-        unixTimeStamp: "1629880800",
+        unixTimeStamp: "1629871200",
         club: "Club I",
-        description: "Excepteur sint occaecat cupidatat non proident",
+        description: "In voluptate velit esse cillum",
         success: true,
     },
     {
-        unixTimeStamp: "1629882000",
+        unixTimeStamp: "1629871200",
         club: "Club J",
-        description: "Sunt in culpa qui officia deserunt",
+        description: "Dolore eu fugiat nulla pariatur",
         success: false,
     },
+    {
+        unixTimeStamp: "1629871200",
+        club: "Club K",
+        description: "Excepteur sint occaecat cupidatat",
+        success: true,
+    },
+    {
+        unixTimeStamp: "1629871200",
+        club: "Club L",
+        description: "Non proident, sunt in culpa qui",
+        success: false,
+    },
+    {
+        unixTimeStamp: "1629871200",
+        club: "Club M",
+        description: "Officia deserunt mollit anim id est",
+        success: true,
+    },
+    {
+        unixTimeStamp: "1629871200",
+        club: "Club N",
+        description: "Laborum et dolorum fuga",
+        success: false,
+    }
 ];
 
-
 export function Body() {
-
     const { data: session } = useSession();
+
     if (session) {
-
         return (
-            <div className="body">
-                <Table>
-                    <TableCaption>Checkin Logs</TableCaption>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead className="w-[100px]">Date</TableHead>
-                            <TableHead>Club</TableHead>
-                            <TableHead>Description</TableHead>
-                            <TableHead className="text-right">Success</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {tableData.map((row) => (
-                            <TableRow key={row.unixTimeStamp}>
-                                <TableCell>{row.unixTimeStamp}</TableCell>
-                                <TableCell>{row.club}</TableCell>
-                                <TableCell>{row.description}</TableCell>
-                                <TableCell className="text-right">
-                                    {row.success ? "Yes" : "No"}
-                                </TableCell>
-                            </TableRow>
+            <div className="table">
+                <table className="logs-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Club</th>
+                            <th>Description</th>
+                            <th>Success</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {tableData.map((row, index) => (
+                            <tr key={index}>
+                                <td>{row.unixTimeStamp}</td>
+                                <td>{row.club}</td>
+                                <td>{row.description}</td>
+                                <td>{row.success ? "Yes" : "No"}</td>
+                            </tr>
                         ))}
-                    </TableBody>
-                </Table>
-
+                    </tbody>
+                </table>
             </div>
         );
     }
