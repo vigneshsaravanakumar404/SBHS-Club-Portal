@@ -7,7 +7,9 @@ const prisma = new PrismaClient();
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 
-const authOption: NextAuthOptions = {
+const allowedDomains = ["gmail.com", "sbschools.org", "sbstudents.org"];
+
+export const authOption: NextAuthOptions = {
     session: {
         strategy: "jwt",
     },
@@ -37,9 +39,13 @@ const authOption: NextAuthOptions = {
                 create: {
                     email: profile.email,
                     name: profile.name,
+                    // @ts-ignore
+                    avatar: profile.picture,
                 },
                 update: {
                     name: profile.name,
+                    // @ts-ignore
+                    avatar: profile.picture,
                 },
             });
 

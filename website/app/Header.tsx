@@ -1,4 +1,3 @@
-"use client";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { useSession } from 'next-auth/react';
 import { Button } from "@/components/ui/button"
@@ -43,6 +42,7 @@ export default function Header() {
                         </li>
                     ))}
                 </ul>
+
                 <div className="avatar">
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
