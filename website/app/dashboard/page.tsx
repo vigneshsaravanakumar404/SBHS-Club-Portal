@@ -1,4 +1,4 @@
-import CreateEvent from "@/components/CreateCheckIn/CreateCheckIn";
+import CreateEventMenu from "@/components/CreateEvent/CreateEvent";
 import prisma from '@/lib/db'
 import { getServerSession } from "next-auth/next";
 
@@ -86,7 +86,6 @@ function Content() {
   );
 }
 
-// TODO: Check the user is signed in, else redirect to the login page
 export default async function Page() {
   const session = await getServerSession();
   var user = null;
@@ -104,7 +103,7 @@ export default async function Page() {
       {header()}
       <br />
       {Content()}
-      {allowedToCreateEvent && user && <CreateEvent associations={user.leadershipFor.concat(user.advisorFor)}/>}
+      {allowedToCreateEvent && user && <CreateEventMenu associations={user.leadershipFor.concat(user.advisorFor)}/>}
       {user ? JSON.stringify(await user) : "how did you get here"}
     </div>
   );

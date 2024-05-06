@@ -31,6 +31,7 @@ export const authOption: NextAuthOptions = {
         throw new Error("No profile");
       }
 
+
       await prisma.user.upsert({
         where: {
           email: profile.email,
@@ -38,11 +39,13 @@ export const authOption: NextAuthOptions = {
         create: {
           email: profile.email,
           name: profile.name,
-          avatar: profile.image
+          // @ts-ignore
+          avatar: profile.picture
         },
         update: {
           name: profile.name,
-          avatar: profile.image
+          // @ts-ignore
+          avatar: profile.picture
         },
       });
 

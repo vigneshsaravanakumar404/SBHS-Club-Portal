@@ -27,17 +27,38 @@ enum AssociationType {
   OTHER
 }
 
+enum LogType {
+  CREATED
+  NAME
+  ACTIVE
+  SHARE
+  LOCATION
+  CODE
+  OTHER
+}
+
+model EventLog {
+  log_id      String   @id @default(dbgenerated("concat('cil_', replace(cast(gen_random_uuid() as text), '-', ''), '_', cast(extract(epoch from now()) as text))"))
+  time        DateTime @default(now())
+  event       Event    @relation(fields: [event_id], references: [event_id])
+  event_id    String
+  type        LogType  @default(OTHER)
+  description String?
+  user        User     @relation(fields: [user_id], references: [user_id])
+  user_id     String
+}
+
 model Association {
   association_id String          @id @default(dbgenerated("concat('ast_', replace(cast(gen_random_uuid() as text), '-', ''))"))
   name           String
   type           AssociationType
-  checkIns       CheckIn[]
+  checkIns       Event[]
   advisors       User[]          @relation("advisor")
   leadership     User[]          @relation("leadership")
 }
 
-model CheckIn {
-  checkin_id     String       @id @default(dbgenerated("concat('evt_', replace(cast(gen_random_uuid() as text), '-', ''))"))
+model Event {
+  event_id       String       @id @default(dbgenerated("concat('evt_', replace(cast(gen_random_uuid() as text), '-', ''))"))
   name           String       @default("A generic event")
   locationIP     Boolean      @default(true)
   locationGEO    Boolean      @default(false)
@@ -46,24 +67,35 @@ model CheckIn {
   code           String?      @unique
   createdAt      DateTime     @default(now())
   createdBy      User         @relation(fields: [owner_id], references: [user_id])
-  owner_id       String       
+  owner_id       String
   sharedWith     User[]       @relation("sharedWith")
-  checkedIn      User[]       @relation("checkedIn")
+  checkedIn      CheckIn[]
   active         Boolean      @default(true)
+  eventLogs      EventLog[]
+}
+
+model CheckIn {
+  checkinentry_id String   @id @default(dbgenerated("concat('cie_', replace(cast(gen_random_uuid() as text), '-', ''))"))
+  user            User     @relation(fields: [user_id], references: [user_id])
+  user_id         String
+  time            DateTime @default(now())
+  event           Event    @relation(fields: [event_id], references: [event_id])
+  event_id        String
 }
 
 model User {
-  user_id            String        @id @default(dbgenerated("concat('usr_', replace(cast(gen_random_uuid() as text), '-', ''))"))
-  email              String        @unique
-  schoolId           String?
-  name               String?
-  avatar             String?
-  checkedIn          CheckIn[]     @relation("checkedIn")
-  role               Role          @default(DEFAULT)
-  createdAt          DateTime      @default(now())
-  updatedAt          DateTime      @updatedAt
-  advisorFor         Association[] @relation("advisor")
-  leadershipFor      Association[] @relation("leadership")
-  createdCheckIns    CheckIn[]
-  sharedWithCheckIns CheckIn[]     @relation("sharedWith")
+  user_id          String        @id @default(dbgenerated("concat('usr_', replace(cast(gen_random_uuid() as text), '-', ''))"))
+  email            String        @unique
+  schoolId         String?
+  name             String?
+  avatar           String?
+  checkedIn        CheckIn[]
+  role             Role          @default(DEFAULT)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  advisorFor       Association[] @relation("advisor")
+  leadershipFor    Association[] @relation("leadership")
+  createdEvents    Event[]
+  sharedWithEvents Event[]       @relation("sharedWith")
+  eventLogs        EventLog[]
 }
