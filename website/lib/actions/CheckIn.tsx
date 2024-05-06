@@ -42,8 +42,8 @@ export default async function CheckIn(props: CheckInProps) {
 
   if (event == null) return { success: false, error: "A valid code or ID was not submitted." };
 
-  if(event.active == false){
-    return {success: false, error:"This event is currently not active."};
+  if (event.active == false) {
+    return { success: false, error: "This event is currently not active." };
   }
 
   const existingCheckInEntry = await prisma.checkIn.findFirst({
@@ -59,12 +59,12 @@ export default async function CheckIn(props: CheckInProps) {
   }
 
   const checkInEntry = await prisma.checkIn.create({
-    data:{
-      user: {connect: {user_id: user.user_id}},
-      event: {connect: {event_id: event.event_id}}
+    data: {
+      user: { connect: { user_id: user.user_id } },
+      event: { connect: { event_id: event.event_id } }
     }
   })
 
-  return {success: true, event: event}
+  return { success: true, event: event }
 
 }

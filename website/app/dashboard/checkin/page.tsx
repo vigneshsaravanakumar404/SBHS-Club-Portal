@@ -11,15 +11,15 @@ export default function Page() {
 
   useEffect(() => {
     let tempCode: string | null = searchParams.get('code')
-    if(tempCode)
+    if (tempCode)
       setCode(tempCode)
   }, [searchParams]);
-  
 
-  const handleSubmit = async() => {
-    const response = await CheckIn({code: code});
 
-    if(!response.success){
+  const handleSubmit = async () => {
+    const response = await CheckIn({ code: code });
+
+    if (!response.success) {
       alert(response.error)
     }
 
@@ -27,7 +27,7 @@ export default function Page() {
     //   alert(JSON.stringify(response.checkin))
     // }
 
-    
+
   }
   return <div className="flex flex-col">
     <input onChange={(e) => setCode(e.target.value)} type="text" value={code} placeholder="Enter Code"></input>

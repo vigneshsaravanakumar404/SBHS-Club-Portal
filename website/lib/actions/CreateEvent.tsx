@@ -36,7 +36,7 @@ export default async function CreateEvent(props: EventProps) {
     user = await prisma.user.findFirst({ where: { email: session.user.email }, include: { leadershipFor: true, advisorFor: true } });
   }
 
-  if(!user || !session){
+  if (!user || !session) {
     return { success: false, error: "Not authenticated" };
   }
 
@@ -50,14 +50,14 @@ export default async function CreateEvent(props: EventProps) {
   }
 
   let allowed = false;
-  if (user?.role == "ADMIN" || user?.role == "ADVISOR") 
+  if (user?.role == "ADMIN" || user?.role == "ADVISOR")
     allowed = true;
-  else if (association && (user?.advisorFor.some(a => a.association_id === props.association_id) || user?.leadershipFor.some(a => a.association_id === props.association_id))) 
+  else if (association && (user?.advisorFor.some(a => a.association_id === props.association_id) || user?.leadershipFor.some(a => a.association_id === props.association_id)))
     allowed = true;
-  else if(props.association_id == "NO ASSOCIATION" && user?.role == "TEACHER")
+  else if (props.association_id == "NO ASSOCIATION" && user?.role == "TEACHER")
     allowed = true
 
-  if(!allowed){
+  if (!allowed) {
     return { success: false, error: "No permissions" };
   }
 

@@ -30,17 +30,17 @@ export default function EventDashboard({ params }: { params: { id: string } }) {
         event_id: event.event_id,
         sharedWith: updatedSharedWith
       });
-    } 
+    }
   };
 
-  const manageAddUser = async(user_id: string) => {
-    if(event) {
+  const manageAddUser = async (user_id: string) => {
+    if (event) {
       const updatedSharedWith = event.sharedWith.push()
     }
   }
 
-  const changeCode = async() => {
-    if(event){
+  const changeCode = async () => {
+    if (event) {
       const response = await UpdateEvent({
         event_id: event.event_id,
         regenerateCode: true
@@ -58,13 +58,13 @@ export default function EventDashboard({ params }: { params: { id: string } }) {
           router.push("/dashboard");
         }
       }
-      
+
     };
 
     setHost(window.location.host);
 
     fetchData();
-    
+
   }, []);
 
 

@@ -10,15 +10,15 @@ export default async function Layout({ children, params }: { children: React.Rea
 
   var user:
     | ({ advisorFor: { association_id: string; name: string; type: $Enums.AssociationType }[]; leadershipFor: { association_id: string; name: string; type: $Enums.AssociationType }[] } & {
-        user_id: string;
-        email: string;
-        schoolId: string | null;
-        name: string | null;
-        avatar: string | null;
-        role: $Enums.Role;
-        createdAt: Date;
-        updatedAt: Date;
-      })
+      user_id: string;
+      email: string;
+      schoolId: string | null;
+      name: string | null;
+      avatar: string | null;
+      role: $Enums.Role;
+      createdAt: Date;
+      updatedAt: Date;
+    })
     | null = null;
   if (session?.user?.email) {
     user = await prisma.user.findFirst({ where: { email: session.user.email }, include: { leadershipFor: true, advisorFor: true } });
@@ -32,7 +32,7 @@ export default async function Layout({ children, params }: { children: React.Rea
   if (event == null) {
     redirect("/dashboard");
   }
-  
+
   let allowed = false;
 
   if (user.role == "ADMIN" || user.role == "ADVISOR") allowed = true;

@@ -10,45 +10,44 @@ const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 const allowedDomains = ["gmail.com", "sbschools.org", "sbstudents.org"];
 
 export const authOption: NextAuthOptions = {
-  session: {
-    strategy: "jwt",
-  },
-  providers: [
-    GoogleProvider({
-      clientId: GOOGLE_CLIENT_ID,
-      clientSecret: GOOGLE_CLIENT_SECRET,
-    }),
-  ],
-  // pages: {
-  //   signIn: "/auth/signin",
-  //   signOut: "/auth/signout",
-  //   error: "/auth/error", // Error code passed in query string as ?error=
-  //   verifyRequest: "/auth/verify-request", // (used for check email message)
-  //   newUser: "/auth/new-user", // New users will be directed here on first sign in (leave the property out if not of interest)},
-  // },
-  callbacks: {
-    async signIn({ account, profile }) {
-      if (!profile?.email) {
-        throw new Error("No profile");
-      }
+    session: {
+        strategy: "jwt",
+    },
+    providers: [
+        GoogleProvider({
+            clientId: GOOGLE_CLIENT_ID,
+            clientSecret: GOOGLE_CLIENT_SECRET,
+        }),
+    ],
+    // pages: {
+    //   signIn: "/auth/signin",
+    //   signOut: "/auth/signout",
+    //   error: "/auth/error", // Error code passed in query string as ?error=
+    //   verifyRequest: "/auth/verify-request", // (used for check email message)
+    //   newUser: "/auth/new-user", // New users will be directed here on first sign in (leave the property out if not of interest)},
+    // },
+    callbacks: {
+        async signIn({ account, profile }) {
+            if (!profile?.email) {
+                throw new Error("No profile");
+            }
 
-
-      await prisma.user.upsert({
-        where: {
-          email: profile.email,
-        },
-        create: {
-          email: profile.email,
-          name: profile.name,
-          // @ts-ignore
-          avatar: profile.picture
-        },
-        update: {
-          name: profile.name,
-          // @ts-ignore
-          avatar: profile.picture
-        },
-      });
+            await prisma.user.upsert({
+                where: {
+                    email: profile.email,
+                },
+                create: {
+                    email: profile.email,
+                    name: profile.name,
+                    // @ts-ignore
+                    avatar: profile.picture,
+                },
+                update: {
+                    name: profile.name,
+                    // @ts-ignore
+                    avatar: profile.picture,
+                },
+            });
 
             if (account?.provider === "google") {
                 //@ts-ignore

@@ -18,20 +18,20 @@ interface UpdateEventProps {
 export default async function UpdateEvent(props: UpdateEventProps) {
   const session = await getServerSession(authOption);
 
-  if(!session)
-    return {success: false, error: "Not authenticated"}
+  if (!session)
+    return { success: false, error: "Not authenticated" }
 
   var user:
     | ({ advisorFor: { association_id: string; name: string; type: $Enums.AssociationType }[]; leadershipFor: { association_id: string; name: string; type: $Enums.AssociationType }[] } & {
-        user_id: string;
-        email: string;
-        schoolId: string | null;
-        name: string | null;
-        avatar: string | null;
-        role: $Enums.Role;
-        createdAt: Date;
-        updatedAt: Date;
-      })
+      user_id: string;
+      email: string;
+      schoolId: string | null;
+      name: string | null;
+      avatar: string | null;
+      role: $Enums.Role;
+      createdAt: Date;
+      updatedAt: Date;
+    })
     | null = null;
   if (session?.user?.email) {
     user = await prisma.user.findFirst({ where: { email: session.user.email }, include: { leadershipFor: true, advisorFor: true } });
@@ -75,7 +75,7 @@ export default async function UpdateEvent(props: UpdateEventProps) {
     logData.push({
       user: { connect: { user_id: user.user_id } },
       event: { connect: { event_id: event.event_id } },
-      type: LogType.NAME, 
+      type: LogType.NAME,
       description: `Regenerated code to ${updateData.code}`,
     });
   }
@@ -85,7 +85,7 @@ export default async function UpdateEvent(props: UpdateEventProps) {
     logData.push({
       user: { connect: { user_id: user.user_id } },
       event: { connect: { event_id: event.event_id } },
-      type: LogType.LOCATION, 
+      type: LogType.LOCATION,
       description: `Set require IP location to ${props.locationIP}`,
     });
   }
@@ -95,7 +95,7 @@ export default async function UpdateEvent(props: UpdateEventProps) {
     logData.push({
       user: { connect: { user_id: user.user_id } },
       event: { connect: { event_id: event.event_id } },
-      type: LogType.LOCATION, 
+      type: LogType.LOCATION,
       description: `Set require geo location to ${props.locationGEO}`,
     });
   }
@@ -105,7 +105,7 @@ export default async function UpdateEvent(props: UpdateEventProps) {
     logData.push({
       user: { connect: { user_id: user.user_id } },
       event: { connect: { event_id: event.event_id } },
-      type: LogType.ACTIVE, 
+      type: LogType.ACTIVE,
       description: `Set active status to ${props.active}`,
     });
   }
