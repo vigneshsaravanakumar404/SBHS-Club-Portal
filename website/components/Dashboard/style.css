@@ -1,5 +1,6 @@
 /* Navbar */
 .navbar {
+    flex: 1;
     background-color: #f5f5f5;
     padding: 10px 20px;
     display: flex;
@@ -8,12 +9,20 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+.button {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
 .nav-links {
+    flex: 1;
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .nav-links li {
@@ -31,15 +40,6 @@
     color: #666;
 }
 
-.avatar {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.avatar span {
-    font-weight: bold;
-}
 
 .button-container {
     display: flex;
@@ -47,83 +47,14 @@
     flex-direction: column;
 }
 
-.name {
-    margin-right: 10px;
-}
-
-/* Hamburger icon styles */
-.toggle-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 1.5rem;
-    display: none;
-    /* Initially hide on larger screens */
-}
-
-/* Media query for smaller screens */
-@media screen and (max-width: 768px) {
-    .nav-links {
-        display: none;
-        /* Hide nav links by default on smaller screens */
-        flex-direction: column;
-        align-items: center;
-        position: absolute;
-        top: 70px;
-        /* Adjust as needed based on your navbar height */
-        left: 0;
-        width: 100%;
-        background-color: #f5f5f5;
-        padding: 10px 0;
-        border-top: 1px solid #ddd;
-    }
-
-    .nav-links li {
-        margin: 10px 0;
-    }
-
-    .toggle-button {
-        display: block;
-        /* Show the hamburger icon on smaller screens */
-    }
-
-    /* Show nav links when hamburger icon is clicked */
-    .nav-links.active {
-        display: flex;
-    }
-}
 
 /* Footer */
 .footer {
     background-color: #333;
-    color: #fff;
-    padding: 20px 0;
-    margin-top: 20px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
     text-align: center;
-    /* Center align text */
-}
-
-.authors {
-    display: flex;
-    flex-wrap: wrap;
-    /* Allow authors to wrap */
-    justify-content: center;
-    /* Center align authors */
-}
-
-.authors div {
-    margin: 5px;
-    /* Add spacing between author blocks */
-}
-
-.authors a {
-    color: #fff;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    /* Smooth color transition */
-}
-
-.authors a:hover {
-    color: #ccc;
-    /* Change color on hover */
 }

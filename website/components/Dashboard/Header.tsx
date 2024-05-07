@@ -10,7 +10,7 @@ require("./style.css");
 const links = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/logs", label: "Logs" },
-  { href: "/dashboard", label: "Join" },
+  { href: "/calendar", label: "Calendar" },
 ];
 
 export default async function Header() {
@@ -36,19 +36,23 @@ export default async function Header() {
         <div className="logo">
           <h1>LOGO</h1>
         </div>
-        <button className="toggle-button">&#9776;</button> {/* Hamburger icon */}
       </div>
-      <ul className="nav-links">
-        {links.map(({ href, label }) => (
-          <li key={`${href}${label}`}>
-            <a href={href}>{label}</a>
-          </li>
-        ))}
-      </ul>
+      <div className="nav-links">
+        <ul className="nav-links">
+          {links.map(({ href, label }) => (
+            <li key={`${href}${label}`}>
+              <a href={href}>{label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="button">
+        {allowedToCreateEvent && user && <CreateEventMenu associations={user.leadershipFor.concat(user.advisorFor)} />}
+      </div>
 
       <div className="flex flex-row gap-5 items-center justify-center">
-        {allowedToCreateEvent && user && <CreateEventMenu associations={user.leadershipFor.concat(user.advisorFor)} />}
         <div className="avatar">
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar>
@@ -71,6 +75,6 @@ export default async function Header() {
           </DropdownMenu>
         </div>
       </div>
-    </nav>
+    </nav >
   );
 }
