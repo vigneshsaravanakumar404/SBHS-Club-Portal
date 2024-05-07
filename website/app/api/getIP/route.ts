@@ -2,17 +2,17 @@ import { NextRequest, NextResponse, userAgent } from "next/server";
 import { headers } from "next/headers";
 
 /** @param {NextRequest} req */
-export async function GET(req: { headers: Headers; }) {
-  const { ua } = userAgent(req);
+export async function GET(req: { headers: Headers }) {
+    const { ua } = userAgent(req);
 
-  const headersList = headers();
-  const ip = headersList.get("x-forwarded-for");
+    const headersList = headers();
+    const ip = headersList.get("x-forwarded-for");
 
-  const data = {
-    ok: true,
-    ip_address: ip,
-    user_agent: ua,
-  };
+    const data = {
+        ok: true,
+        ip_address: ip,
+        user_agent: ua,
+    };
 
-  return NextResponse.json(data, { status: 200 });
+    return NextResponse.json(data, { status: 200 });
 }
