@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import CreateEvent from "@/lib/actions/CreateEvent";
 
 interface CreateEventProps {
-  associations: Association[];
+  associations?: Association[];
 }
 
 export default function CreateEventMenu(props: CreateEventProps) {
@@ -48,7 +48,7 @@ export default function CreateEventMenu(props: CreateEventProps) {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline">+</Button>
+          <Button variant="default">Create Event</Button>
         </DialogTrigger>
         <DialogContent
           onInteractOutside={(e) => {
