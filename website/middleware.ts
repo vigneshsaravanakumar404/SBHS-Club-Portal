@@ -1,7 +1,7 @@
 import { withAuth } from "next-auth/middleware";
 
 export const config = {
-    matcher: "/clubs/:path*",
+    matcher: ["/dashboard/:path*", "/checkin"],
 };
 
 export default withAuth({
