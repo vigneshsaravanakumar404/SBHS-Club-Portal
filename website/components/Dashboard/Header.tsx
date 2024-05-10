@@ -56,7 +56,7 @@ export default async function Header() {
           </div>
 
           {/* Mode Toggle */}
-          <ModeToggle />
+          <ModeToggle/>
 
           {/* Avatar & Drop Down */}
           <DropdownMenu>
