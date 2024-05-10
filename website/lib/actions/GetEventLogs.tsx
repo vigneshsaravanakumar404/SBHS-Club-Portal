@@ -8,7 +8,7 @@ interface Props {
   event_id: string;
 }
 
-export default async function GetEventDashboardData(props: Props) {
+export default async function GetEventLogs(props: Props) {
   const session = await getServerSession(authOption);
 
   var user:
@@ -32,7 +32,7 @@ export default async function GetEventDashboardData(props: Props) {
   }
   var event = await prisma.event.findFirst({
     where: { event_id: props.event_id },
-    include: { sharedWith: true, eventLogs: { include: { user: true } }, createdBy: true, associatedWith: true, checkedIn: { include: { user: true }, orderBy: { time: "desc" } } },
+    include: { sharedWith: true, eventLogs: { include: { user: true }, orderBy: { time: "desc" } }, createdBy: true, associatedWith: true },
   });
 
   if (event == null) {
@@ -51,6 +51,6 @@ export default async function GetEventDashboardData(props: Props) {
   if (!allowed) {
     return { success: false, redirect: true, error: "No permissions" };
   } else {
-    return { success: true, event: event };
+    return { success: true, logs: event.eventLogs };
   }
 }

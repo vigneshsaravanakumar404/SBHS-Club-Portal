@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import CreateEvent from "@/lib/actions/CreateEvent";
+import { useToast } from "@/components/ui/use-toast";
 
 interface CreateEventProps {
   associations?: Association[];
@@ -16,6 +17,7 @@ interface CreateEventProps {
 
 export default function CreateEventMenu(props: CreateEventProps) {
   const router = useRouter();
+  const { toast } = useToast();
 
   const [eventName, setEventName] = useState("");
   const [association, setAssociation] = useState("NO ASSOCIATION");
@@ -24,7 +26,10 @@ export default function CreateEventMenu(props: CreateEventProps) {
 
   const handleSubmit = async () => {
     if (eventName == "" || eventName == " ") {
-      alert("Please select a name");
+      toast({
+        title: "Error, invalid fields",
+        description: "Please enter a name",
+      });
     } else {
       const response = await CreateEvent({
         name: eventName,
@@ -39,7 +44,10 @@ export default function CreateEventMenu(props: CreateEventProps) {
         router.push("/dashboard/event/manage/" + event?.event_id);
       } else {
         const error = response.error;
-        alert(error);
+        toast({
+          title: "Error",
+          description: error,
+        });
       }
     }
   };
