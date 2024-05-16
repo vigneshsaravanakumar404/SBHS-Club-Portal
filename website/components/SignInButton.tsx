@@ -18,7 +18,7 @@ export default function SignInButton() {
       className="flex flex-row justify-center items-center gap-2 px-8 py-8"
     >
       <Image src={"google_logo.svg"} width={28} height={28} alt={""}></Image>
-      <span className="text-xl">Login with Google</span>
+      <span className="text-xl dark:text-white">Login with Google</span>
     </Button>
   );
 }

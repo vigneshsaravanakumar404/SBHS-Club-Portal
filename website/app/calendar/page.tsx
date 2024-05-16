@@ -1,22 +1,18 @@
-"use client"
 import * as React from "react"
 import Header from "@/components/Dashboard/Header";
 import Footer from "@/components/Dashboard/Footer";
 import UnenrollButton from "@/components/Dashboard/UnenrollButton";
-import { Calendar } from "@/components/ui/calendar"
+import 'rsuite/Calendar/styles/index.css';
+import { Calendar } from 'rsuite';
 
 function Body() {
 
-    const [date, setDate] = React.useState<Date | undefined>(new Date())
 
     return (
-    <Calendar
-        mode="single"
-        selected={date}
-        onSelect={setDate}
-        className="rounded-md border shadow"
-    />
-    )
+        <div className="w-full">
+            <Calendar/>
+        </div>
+    );    
 }
   
   
@@ -24,6 +20,7 @@ export default function Page() {
 return (
     <div>
     <Header />
+    <Body />
     <Footer />
     </div>
 );
