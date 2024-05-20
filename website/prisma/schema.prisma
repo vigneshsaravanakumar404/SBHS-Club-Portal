@@ -52,9 +52,10 @@ model Association {
   association_id String          @id @default(dbgenerated("concat('ast_', replace(cast(gen_random_uuid() as text), '-', ''))"))
   name           String
   type           AssociationType
-  checkIns       Event[]
+  events         Event[]
   advisors       User[]          @relation("advisor")
   leadership     User[]          @relation("leadership")
+  checkIns       CheckIn[]
 }
 
 model Event {
@@ -75,12 +76,14 @@ model Event {
 }
 
 model CheckIn {
-  checkinentry_id String   @id @default(dbgenerated("concat('cie_', replace(cast(gen_random_uuid() as text), '-', ''))"))
-  user            User     @relation(fields: [user_id], references: [user_id])
+  checkinentry_id String       @id @default(dbgenerated("concat('cie_', replace(cast(gen_random_uuid() as text), '-', ''))"))
+  user            User         @relation(fields: [user_id], references: [user_id])
   user_id         String
-  time            DateTime @default(now())
-  event           Event    @relation(fields: [event_id], references: [event_id])
+  time            DateTime     @default(now())
+  event           Event        @relation(fields: [event_id], references: [event_id])
   event_id        String
+  association     Association? @relation(fields: [association_id], references: [association_id])
+  association_id  String?
 }
 
 model User {

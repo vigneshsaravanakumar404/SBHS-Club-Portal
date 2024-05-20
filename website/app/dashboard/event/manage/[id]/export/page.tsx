@@ -32,18 +32,18 @@ export default function Export({ params }: { params: { id: string } }) {
 
   const downloadExcel = async () => {
     const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet("Sheet1");
+    const worksheet = workbook.addWorksheet(event?.name ?? "Event");
 
     // Assuming event.checkedIn is an array of objects
     const data = event?.checkedIn ?? [];
 
     // Create a header row
-    const headers = ["Event", "Name", "Email", "Date & Time"];
+    const headers = ["Name", "Email", "Date & Time"];
     worksheet.addRow(headers);
 
     // Add rows
     data.forEach((item) => {
-      worksheet.addRow([event?.name, item.user.name, item.user.email, item.time]);
+      worksheet.addRow([item.user.name, item.user.email, item.time]);
     });
 
     // Write buffer

@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth";
 import prisma from "../db";
 import { headers } from "next/headers";
 
-const acceptedIPs = "50.206.77."
+const acceptedIPs = "50.206.77.";
 
 interface Base {
   user_id?: string;
@@ -61,16 +61,16 @@ export default async function CheckIn(props: CheckInProps) {
     return { success: false, error: "You have already checked into this event." };
   }
   const ip = headers().get("x-forwarded-for");
-  
-  if(event.locationIP){
-    if(!ip?.startsWith(acceptedIPs) && ip != "::1")
-      return { success: false, error: "You are not on the school WiFi"}
+
+  if (event.locationIP) {
+    if (!ip?.startsWith(acceptedIPs) && ip != "::1") return { success: false, error: "You are not on the school WiFi" };
   }
 
   const checkInEntry = await prisma.checkIn.create({
     data: {
       user: { connect: { user_id: user.user_id } },
       event: { connect: { event_id: event.event_id } },
+      association: { connect: { association_id: event.association_id ?? undefined } },
     },
   });
 

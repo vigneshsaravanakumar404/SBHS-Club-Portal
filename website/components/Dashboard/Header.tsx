@@ -7,18 +7,17 @@ import CreateEventMenu from "../CreateEvent/CreateEventMenu";
 import prisma from "@/lib/db";
 import { ModeToggle } from "../ThemeProvider/ThemeButton";
 
-
 // Constants
 const links = [
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "/logs", label: "Logs" },
-  { href: "/calendar", label: "Calendar" },
+  { href: "/dashboard", label: "Associations" },
+  { href: "/dashboard/event/list", label: "All Check Ins" },
+  { href: "/dashboard/checkin", label: "Check In" },
 ];
-const logo = "https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-1/306608878_521410909795532_844824003382673361_n.jpg?stp=c0.0.180.180a_dst-jpg&_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=nA5uC8nI8xwQ7kNvgGANBAP&_nc_ht=scontent-iad3-1.xx&oh=00_AfDj3DQ2FZSSaBJQKGalModOAdRMHaf14Jolw2PecoP43g&oe=66427F4B";
+const logo =
+  "https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-1/306608878_521410909795532_844824003382673361_n.jpg?stp=c0.0.180.180a_dst-jpg&_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=nA5uC8nI8xwQ7kNvgGANBAP&_nc_ht=scontent-iad3-1.xx&oh=00_AfDj3DQ2FZSSaBJQKGalModOAdRMHaf14Jolw2PecoP43g&oe=66427F4B";
 
 //TODO: Fix Movile Layout Not Working
 export default async function Header() {
-
   const session = await getServerSession(authOption);
 
   if (!session) {
@@ -39,9 +38,7 @@ export default async function Header() {
     allowedToCreateEvent = ["ADVISOR", "TEACHER", "ADMIN"].includes(user.role) || (user.role === "DEFAULT" && (user.leadershipFor.length > 0 || user.advisorFor.length > 0));
   }
 
-
   return (
-
     <nav className="sticky top-0 bg-white/50 border-gray-200 dark:bg-gray-900 shadow-md backdrop-blur-sm">
       <div className="full-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/dashboard" className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -49,11 +46,8 @@ export default async function Header() {
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SBHS</span>
         </a>
         <div className="flex md:order-2 space-x-3 md:space-x-5 rtl:space-x-reverse">
-
           {/* Get Started Button */}
-          <div className="button">
-            {allowedToCreateEvent && user && <CreateEventMenu associations={user.leadershipFor.concat(user.advisorFor)} />}
-          </div>
+          <div className="button">{allowedToCreateEvent && user && <CreateEventMenu associations={user.leadershipFor.concat(user.advisorFor)} />}</div>
 
           {/* Mode Toggle */}
           <ModeToggle />
@@ -81,7 +75,13 @@ export default async function Header() {
           </DropdownMenu>
 
           {/* Mobile Hamburger Menu */}
-          <button data-collapse-toggle="navbar-cta" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-cta" aria-expanded="false">
+          <button
+            data-collapse-toggle="navbar-cta"
+            type="button"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-cta"
+            aria-expanded="false"
+          >
             <span className="sr-only">Open main menu</span>
             <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
@@ -94,7 +94,10 @@ export default async function Header() {
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:border-gray-700">
             {links.map((link, index) => (
               <li key={index}>
-                <a href={link.href} className="block py-2 px-3 md:p-0 text-gray-900 rounded  md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:text-white dark:border-gray-700">
+                <a
+                  href={link.href}
+                  className="block py-2 px-3 md:p-0 text-gray-900 rounded  md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:text-white dark:border-gray-700"
+                >
                   {link.label}
                 </a>
               </li>
@@ -103,6 +106,5 @@ export default async function Header() {
         </div>
       </div>
     </nav>
-
   );
 }
