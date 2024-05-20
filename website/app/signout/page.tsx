@@ -15,5 +15,5 @@ export default function SignOut() {
     }
   }, [session]);
 
-  return null; // Render nothing
+  return null; 
 }
