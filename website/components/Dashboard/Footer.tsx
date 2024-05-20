@@ -1,4 +1,3 @@
-
 const authors = [
   { name: "Krish Renjen", gitHub: "https://github.com/krishrenjen" },
   { name: "Vignesh Saravanakumar", gitHub: "https://github.com/vigneshsaravanakumar404" },
