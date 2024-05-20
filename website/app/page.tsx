@@ -11,13 +11,13 @@ export default async function Home() {
   return (
     <div className="flex flex-col md:flex-row items-center justify-center min-h-screen text-gray-800">
       <div className="flex flex-col w-5/6 mx-2 items-center gap-2 md:gap-4">
-        <h1 className="text-2xl md:text-3xl text-center font-semibold">Log Your</h1>
-        <h1 className="text-3xl md:text-4xl text-center font-bold">South Brunswick High School</h1>
-        <h1 className="text-2xl md:text-3xl text-center font-semibold">Attendance</h1>
+        <h1 className="text-2xl md:text-3xl text-center font-semibold dark:text-white">Log Your</h1>
+        <h1 className="text-3xl md:text-4xl text-center font-bold dark:text-white">South Brunswick High School</h1>
+        <h1 className="text-2xl md:text-3xl text-center font-semibold dark:text-white">Attendance</h1>
       </div>
       <div className="mt-8 flex flex-col mx-2  items-center w-5/6 gap-2 md:gap-4">
         <SignInButton />
-        <p className="text-center">Make sure to log in with your <GradientText>@sbschools.org</GradientText> or <GradientText>@sbstudents.org</GradientText> account</p>
+        <p className="text-center dark:text-white">Make sure to log in with your <GradientText>@sbschools.org</GradientText> or <GradientText>@sbstudents.org</GradientText> account</p>
       </div>
     </div>
   );

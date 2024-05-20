@@ -56,7 +56,12 @@ export default function CreateEventMenu(props: CreateEventProps) {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="default">Create Event</Button>
+          <Button variant="default">
+            <span className="hidden sm:inline">Create Event</span>
+            <span className="inline sm:hidden">+</span>
+          </Button>
+
+
         </DialogTrigger>
         <DialogContent
           onInteractOutside={(e) => {

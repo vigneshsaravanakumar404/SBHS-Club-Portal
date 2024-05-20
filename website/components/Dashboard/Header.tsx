@@ -7,16 +7,14 @@ import CreateEventMenu from "../CreateEvent/CreateEventMenu";
 import prisma from "@/lib/db";
 import { ModeToggle } from "../ThemeProvider/ThemeButton";
 
-// Constants
 const links = [
   { href: "/dashboard", label: "Associations" },
   { href: "/dashboard/event/list", label: "All Check Ins" },
   { href: "/dashboard/checkin", label: "Check In" },
 ];
-const logo =
-  "https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-1/306608878_521410909795532_844824003382673361_n.jpg?stp=c0.0.180.180a_dst-jpg&_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=nA5uC8nI8xwQ7kNvgGANBAP&_nc_ht=scontent-iad3-1.xx&oh=00_AfDj3DQ2FZSSaBJQKGalModOAdRMHaf14Jolw2PecoP43g&oe=66427F4B";
+const logo = "https://cdn-icons-png.freepik.com/512/1907/1907911.png";
 
-//TODO: Fix Movile Layout Not Working
+//TODO: Fix links not centered
 export default async function Header() {
   const session = await getServerSession(authOption);
 
@@ -42,7 +40,7 @@ export default async function Header() {
     <nav className="sticky top-0 bg-white/50 border-gray-200 dark:bg-gray-900 shadow-md backdrop-blur-sm">
       <div className="full-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/dashboard" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <img src={logo} className="h-8" alt="SBHS Logo" />
+          <img src={logo} className="h-10" alt="SBHS Logo" />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SBHS</span>
         </a>
         <div className="flex md:order-2 space-x-3 md:space-x-5 rtl:space-x-reverse">
