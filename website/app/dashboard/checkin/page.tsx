@@ -4,13 +4,11 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
-import { FaCircleArrowRight } from "react-icons/fa6";
 
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Button } from "@/components/ui/button";
-import Header from "@/components/Dashboard/Header";
 
 const inputOTPStyle = "w-20 h-20 text-2xl sm:w-24 sm:h-24 sm:text-3xl md:w-28 md:h-28 md:text-4xl lg:w-32 lg:h-32 lg:text-5xl xl:w-40 xl:h-40 xl:text-6xl";
 
@@ -20,6 +18,17 @@ export default function Page() {
   const { toast } = useToast();
   const router = useRouter();
 
+  const [location, setLocation] = useState<{ latitude: number; longitude: number }>({ latitude: 0, longitude: 0 });
+
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(({ coords }) => {
+        const { latitude, longitude } = coords;
+        setLocation({ latitude, longitude });
+      });
+    }
+  }, []);
+
   useEffect(() => {
     let tempCode: string | null = searchParams.get("code");
     if (tempCode) setCode(tempCode);
@@ -27,7 +36,7 @@ export default function Page() {
   const delay = (ms: number | undefined) => new Promise((res) => setTimeout(res, ms));
 
   const handleSubmit = async () => {
-    const response = await CheckIn({ code: code });
+    const response = await CheckIn({ code: code, latitude: location.latitude, longitude: location.longitude });
 
     if (!response.success) {
       toast({
