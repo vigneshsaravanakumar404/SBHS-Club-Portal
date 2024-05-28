@@ -52,6 +52,8 @@ model Association {
   association_id String          @id @default(dbgenerated("concat('ast_', replace(cast(gen_random_uuid() as text), '-', ''))"))
   name           String
   type           AssociationType
+  imageUrl       String?
+  description    String?
   events         Event[]
   advisors       User[]          @relation("advisor")
   leadership     User[]          @relation("leadership")
