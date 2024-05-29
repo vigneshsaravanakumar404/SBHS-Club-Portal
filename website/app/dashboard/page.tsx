@@ -112,6 +112,7 @@ export default async function Page() {
           {associations.map((item, index) => (
             <AssociationCard
               key={index}
+              id={item?.association_id || ""}
               title={String(item?.name)}
               role={item?.role}
               verified={true}

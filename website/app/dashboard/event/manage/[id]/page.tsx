@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { GrEdit, GrPowerCycle, GrCheckmark } from "react-icons/gr";
 import { Switch } from "@/components/ui/switch";
 import CheckedInTable from "@/components/ManageEvent/CheckedInTable";
+import Header from "@/components/Dashboard/Header";
 
 export default function EventDashboard({ params }: { params: { id: string } }) {
   type EventType = Prisma.EventGetPayload<{
@@ -109,53 +110,56 @@ export default function EventDashboard({ params }: { params: { id: string } }) {
   }, []);
 
   return (
-    <div className="flex justify-center min-h-screen">
-      <div className="flex flex-col gap-2 w-11/12 mt-2 items-start">
-        <h1 className="text-2xl md:text-3xl text-center font-semibold">{event?.name}</h1>
-        {event?.associatedWith && <h1 className="text-xl md:text-2xl text-center font-normal">{event?.associatedWith?.name}</h1>}
-        <ViewCode code={event?.code ?? undefined} host={host ?? undefined} />
+    <div>
+      <Header/>
+      <div className="flex justify-center min-h-screen">
+        <div className="flex flex-col gap-2 w-11/12 mt-2 items-start">
+          <h1 className="text-2xl md:text-3xl text-center font-semibold">{event?.name}</h1>
+          {event?.associatedWith && <h1 className="text-xl md:text-2xl text-center font-normal">{event?.associatedWith?.name}</h1>}
+          <ViewCode code={event?.code ?? undefined} host={host ?? undefined} />
 
-        <div className="flex flex-row items-top justify-start gap-72 w-full">
-          <div className="max-w-[50%]">
-            <CheckedInTable checkedIn={event?.checkedIn} />
+          <div className="flex flex-row items-top justify-start gap-72 w-full">
+            <div className="max-w-[50%]">
+              <CheckedInTable checkedIn={event?.checkedIn} />
+            </div>
+            <div className="max-w-[50%] flex flex-col gap-2">
+              <h1 className="text-2xl md:text-3xl text-center font-semibold">Manage Event</h1>
+              <Button variant={regenerateCode ? "secondary" : "outline"} className="gap-2" onClick={(e) => setRegenerateCode(!regenerateCode)}>
+                <GrPowerCycle />
+                Regenerate Code
+              </Button>
+              <Button variant="outline" className="gap-2">
+                <GrEdit />
+                Edit Name
+              </Button>
+
+              <div className="flex flex-row gap-2 items-center">
+                <Switch checked={active} id="active" onCheckedChange={(b) => setActive(b)} />
+                <Label htmlFor="active">CheckIn Active</Label>
+              </div>
+              <div className="flex flex-row gap-2 items-center">
+                <Switch checked={ip} id="ip" onCheckedChange={(b) => setIP(b)} />
+                <Label htmlFor="ip">Check Location (IP)</Label>
+              </div>
+              <div className="flex flex-row gap-2 items-center">
+                <Switch checked={geo} id="geo" onCheckedChange={(b) => setGEO(b)} />
+                <Label htmlFor="geo">Check Location (GEO)</Label>
+              </div>
+              <Button variant="outline" disabled={!anyUpdates()} className="gap-2" onClick={(e) => editEvent()}>
+                <GrCheckmark />
+                Save
+              </Button>
+            </div>
           </div>
-          <div className="max-w-[50%] flex flex-col gap-2">
-            <h1 className="text-2xl md:text-3xl text-center font-semibold">Manage Event</h1>
-            <Button variant={regenerateCode ? "secondary" : "outline"} className="gap-2" onClick={(e) => setRegenerateCode(!regenerateCode)}>
-              <GrPowerCycle />
-              Regenerate Code
-            </Button>
-            <Button variant="outline" className="gap-2">
-              <GrEdit />
-              Edit Name
-            </Button>
+          {/* <h1>{JSON.stringify(event?.eventLogs)}</h1> */}
 
-            <div className="flex flex-row gap-2 items-center">
-              <Switch checked={active} id="active" onCheckedChange={(b) => setActive(b)} />
-              <Label htmlFor="active">CheckIn Active</Label>
-            </div>
-            <div className="flex flex-row gap-2 items-center">
-              <Switch checked={ip} id="ip" onCheckedChange={(b) => setIP(b)} />
-              <Label htmlFor="ip">Check Location (IP)</Label>
-            </div>
-            <div className="flex flex-row gap-2 items-center">
-              <Switch checked={geo} id="geo" onCheckedChange={(b) => setGEO(b)} />
-              <Label htmlFor="geo">Check Location (GEO)</Label>
-            </div>
-            <Button variant="outline" disabled={!anyUpdates()} className="gap-2" onClick={(e) => editEvent()}>
-              <GrCheckmark />
-              Save
-            </Button>
+          {/* Shared With */}
+          <div className="flex flex-col gap-2">
+            {event?.associatedWith && <SharedCard name={event.associatedWith.name} description={event.associatedWith.type} deletable={false} type={"association"} />}
+            {event?.sharedWith?.map((item, index) => (
+              <SharedCard name={item.name ?? ""} description={item.email} onClick={() => manageDeleteUser(item.user_id)} deletable={true} type={"user"} />
+            ))}
           </div>
-        </div>
-        {/* <h1>{JSON.stringify(event?.eventLogs)}</h1> */}
-
-        {/* Shared With */}
-        <div className="flex flex-col gap-2">
-          {event?.associatedWith && <SharedCard name={event.associatedWith.name} description={event.associatedWith.type} deletable={false} type={"association"} />}
-          {event?.sharedWith?.map((item, index) => (
-            <SharedCard name={item.name ?? ""} description={item.email} onClick={() => manageDeleteUser(item.user_id)} deletable={true} type={"user"} />
-          ))}
         </div>
       </div>
     </div>

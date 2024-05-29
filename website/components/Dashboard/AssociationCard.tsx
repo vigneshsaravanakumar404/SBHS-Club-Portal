@@ -1,3 +1,4 @@
+"use client"
 import { IoMdRibbon } from "react-icons/io";
 import { IoShield } from "react-icons/io5";
 import { MdVerified } from "react-icons/md";
@@ -26,7 +27,7 @@ interface AssociationCardProps {
 
 export default function AssociationCard(props: AssociationCardProps) {
   return (
-    <div className="w-full max-w-sm bg-white border rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 hover:cursor-pointer transition duration-300 ease-in-out transform hover:scale-105">
+    <div className="w-full max-w-sm bg-white border rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 hover:cursor-pointer transition duration-300 ease-in-out transform hover:scale-105" onClick={() => { window.location.href = `/dashboard/association?name=${props.id}`; }}>
       <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
 
       <div className="flex flex-col items-center pb-10">

@@ -4,17 +4,13 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { getServerSession } from "next-auth";
 import CreateEventMenu from "../CreateEvent/CreateEventMenu";
+import CheckInButton from "../CheckIn/CheckInButton";
 import prisma from "@/lib/db";
 import { ModeToggle } from "../ThemeProvider/ThemeButton";
 
-const links = [
-  { href: "/dashboard", label: "Associations" },
-  { href: "/dashboard/event/list", label: "All Check Ins" },
-  { href: "/dashboard/checkin", label: "Check In" },
-];
+
 const logo = "https://cdn-icons-png.freepik.com/512/1907/1907911.png";
 
-//TODO: Fix links not centered
 export default async function Header() {
   const session = await getServerSession(authOption);
 
@@ -44,6 +40,9 @@ export default async function Header() {
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SBHS</span>
         </a>
         <div className="flex md:order-2 space-x-3 md:space-x-5 rtl:space-x-reverse">
+          {/* Check In Button */}
+          <CheckInButton />
+
           {/* Get Started Button */}
           <div className="button">{allowedToCreateEvent && user && <CreateEventMenu associations={user.leadershipFor.concat(user.advisorFor)} />}</div>
 
@@ -85,22 +84,6 @@ export default async function Header() {
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
             </svg>
           </button>
-        </div>
-
-        {/* Navigation Links */}
-        <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:border-gray-700">
-            {links.map((link, index) => (
-              <li key={index}>
-                <a
-                  href={link.href}
-                  className="block py-2 px-3 md:p-0 text-gray-900 rounded  md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:text-white dark:border-gray-700"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </nav>

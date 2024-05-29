@@ -1,11 +1,23 @@
-- Add Logo
-- Improve nav bar looks
-- Improve dashboard looks
-- Improve logs looks
-- Improve join looks
+Important:
+- Settings Page
+- Each Club Page
+    - Your Role
+    - Checkin History
 
-Animations:
-- Dashboard
-- Logs
-- Join
-- Settings
+Optional:
+- Create Settings Page
+- Create page for each club
+  - See Club members
+  - See Club Details
+     - Meeting Dates
+     - Club Officers
+     - Club Advisors
+     - Club Contact Information
+     - Club Requirements
+     - Club Meeting Location
+     - Club Meeting Time
+     - Club Meeting Day
+     - Club Social Media Links
+     - Club Website
+ - Pending Check ins
+ 
