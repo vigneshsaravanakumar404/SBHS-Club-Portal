@@ -13,23 +13,11 @@ const UserRole = ({ role }) => {
     );
 };
 
-function CalendarView() {
-    const [date, setDate] = React.useState<Date | undefined>(new Date())
-
-    return (
-        <Calendar
-            mode="single"
-            selected={date}
-            onSelect={setDate}
-            className="rounded-md border my-5 p-2 max-w-fit"
-        />
-    )
-}
-  
 
 
 export default function AssociationHome({ associatedClubs, checkInData }){
 
+    let [date, setDate] = React.useState<Date | undefined>(new Date())
     const searchParams = useSearchParams();
     const name = searchParams.get('name');
     let isPartOfClub = false;
@@ -44,6 +32,8 @@ export default function AssociationHome({ associatedClubs, checkInData }){
     }
 
     let checkIns = club.checkIns;
+    checkInData = checkInData.filter((checkIn) => checkIn.association_id === name);
+
 
     if (!isPartOfClub){
         return (
@@ -55,33 +45,36 @@ export default function AssociationHome({ associatedClubs, checkInData }){
 
     return (
         <div className="container mx-auto p-4">
-            <div className="center w-full md:w-4/5 mx-auto rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700">
-                <img src={club.imageUrl} alt="Club Banner" className="w-full h-48 object-cover" />
-                <div className="p-4">
-                    <h1 className="text-2xl font-bold text-center text-gray-800 dark:text-white">{club.name}</h1>
-                </div>
+        <div className="center w-full md:w-4/5 mx-auto rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700">
+            <img src={club.imageUrl} alt="Club Banner" className="w-full h-48 object-cover" />
+            <div className="p-4">
+                <h1 className="text-2xl font-bold text-center text-gray-800 dark:text-white">{club.name}</h1>
             </div>
-            <div className="flex flex-col md:flex-row justify-center items-start mt-4 w-full md:w-4/5 mx-auto">
-                <div className="w-full md:w-1/4">
-                    <UserRole role={club.role} />
-                    <CalendarView />
-                </div>
-                <div className="w-full md:w-3/4 p-4">
-                    <div className="mt-4">
-                        <h2 className="text-xl font-bold mb-2">Check-in Data</h2>
-                        <ul className="space-y-2">
-                            {checkInData.map((checkIn) => (
-                                <li key={checkIn.checkinentry_id} className="p-2 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white rounded-lg shadow-lg border-2 border-gray-300 dark:border-gray-700">
-                                    <p>User ID: {checkIn.user_id}</p>
-                                    <p>Time: {checkIn.time.toString()}</p> // Convert the date object to a string
-                                    <p>Event ID: {checkIn.event_id}</p>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
         </div>
+        <div className="flex flex-col md:flex-row justify-center items-start mt-4 w-full md:w-4/5 mx-auto">
+            <div className="w-full md:w-1/4">
+                <UserRole role={club.role} />
+                <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={setDate}
+                    className="rounded-md border my-5 p-2 max-w-fit"
+                />
+            </div>
+            <div className="w-full md:w-3/4 mx-4">
+                <div className="rounded-lg shadow-lg bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 p-4">
+                    <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">Check-in Data</h2>
+                    <ul className="space-y-2">
+                        {checkInData.map((checkIn) => (
+                            <li key={checkIn.checkinentry_id} className="p-2 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white rounded-lg shadow-lg border-2 border-gray-300 dark:border-gray-700">
+                                <p>Time: {checkIn.time.toString()}</p>
+                                <p>Event ID: {checkIn.event_id}</p>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     );
 }
