@@ -30,7 +30,7 @@ export default function ViewCode({host, code, ...props}: ViewCodeProps) {
               <h3 className="text-l sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-center font-light break-all">{`${host}/checkin`}</h3>
             </div>
             {windowSize.width >= 768 && <Separator orientation="vertical" />}
-            {host && windowSize.width >= 768 && <QRCode value={`https://${host}/checkin?code=${code}`} size={Math.min(500, windowSize.width / 3)} />}
+            {host && windowSize.width >= 768 && <QRCode value={`http://${host}/checkin?code=${code}`} size={Math.min(500, windowSize.width / 3)} />}
           </div>
         </DialogContent>
       </Dialog>

@@ -20,7 +20,7 @@ export default async function Page(props: data) {
                 leadershipFor: true,
                 advisorFor: true,
                 checkedIn: {
-                    include: { association: true },
+                    include: { association: true, event: true },
                 },
             },
         });

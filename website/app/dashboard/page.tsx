@@ -43,6 +43,7 @@ const ClubCard = ({ club }: { club: any }) => (
   </div>
 );
 
+
 export default async function Page() {
   const session = await getServerSession(authOption);
   let user;

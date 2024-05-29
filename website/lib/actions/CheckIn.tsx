@@ -1,10 +1,10 @@
 "use server";
-
 import { authOption } from "@/app/api/auth/[...nextauth]/route";
+import { headers } from "next/headers";
 import { $Enums } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import prisma from "../db";
-import { headers } from "next/headers";
+
 
 const acceptedIPs = "50.206.77.";
 const latitudeSB = 40.373631;

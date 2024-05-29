@@ -13,6 +13,15 @@ const UserRole = ({ role }) => {
     );
 };
 
+function missedCheckins(){
+    return (
+        <div className="flex justify-center items-center my-28">
+        <h1 className="text-2xl">No Missed Check-ins</h1>
+        </div>
+    );
+
+}
+
 
 
 export default function AssociationHome({ associatedClubs, checkInData }){
@@ -67,14 +76,16 @@ export default function AssociationHome({ associatedClubs, checkInData }){
                     <ul className="space-y-2">
                         {checkInData.map((checkIn) => (
                             <li key={checkIn.checkinentry_id} className="p-2 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white rounded-lg shadow-lg border-2 border-gray-300 dark:border-gray-700">
+                                <p className="font-semibold">{checkIn.event.name}</p>
                                 <p>Time: {checkIn.time.toString()}</p>
-                                <p>Event ID: {checkIn.event_id}</p>
+                                <p className="font-light italic">Event ID: {checkIn.event_id}</p>
                             </li>
                         ))}
                     </ul>
                 </div>
-            </div>
+            </div>            
         </div>
+        
     </div>
     );
 }
