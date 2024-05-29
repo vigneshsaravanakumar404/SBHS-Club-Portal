@@ -62,9 +62,6 @@ export default async function Header() {
               <DropdownMenuSeparator />
               <div className="button-container">
                 <Button variant="secondary" asChild style={{ width: "100%" }}>
-                  <a href="/settings">Settings</a>
-                </Button>
-                <Button variant="secondary" asChild style={{ width: "100%" }}>
                   <a href="/api/auth/signout">Logout</a>
                 </Button>
               </div>

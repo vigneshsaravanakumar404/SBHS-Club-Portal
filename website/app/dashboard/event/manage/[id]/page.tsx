@@ -111,7 +111,6 @@ export default function EventDashboard({ params }: { params: { id: string } }) {
 
   return (
     <div>
-      <Header/>
       <div className="flex justify-center min-h-screen">
         <div className="flex flex-col gap-2 w-11/12 mt-2 items-start">
           <h1 className="text-2xl md:text-3xl text-center font-semibold">{event?.name}</h1>
