@@ -16,54 +16,59 @@ The SBHS Club Portal is a web application designed to efficiently manage data fo
 
 
 
+You're right—GitHub README files don’t support inline CSS like `border-radius` or `box-shadow`. Instead, here’s an optimized version that works well in GitHub’s Markdown rendering:  
+
+---
+
 ## Features  
 
 ### 🌐 Google Account Integration  
 Seamlessly integrates with school Google accounts for easy access and management:  
-- **Autoaccount Creation**: For all members of the South Brunswick High School Google domain
-- **Automatic Administrator Privileges**: Teachers (`@sbschools.org`) can create, manage, and oversee clubs.  
+- **Automatic Administrator Privileges**: Teachers (`@schools.org`) can create, manage, and oversee clubs.  
 - **Automatic Student Privileges**: Students (`@sbstudents.org`) can join invited clubs and check in.  
 
 ### 🌙 Light & Dark Mode  
 Choose between light and dark modes for a comfortable user experience.  
 
-<div style="display: flex; justify-content: center; gap: 20px; margin-top: 10px;">
-  <img src="./Temp/Screenshot%20(292).png" alt="Light Mode" style="width: 45%; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2);" />
-  <img src="./Temp/Screenshot%20(291).png" alt="Dark Mode" style="width: 45%; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2);" />
-</div>  
+| Dark Mode | Light Mode |  
+|------------|------------|  
+| ![Light Mode](./Temp/Screenshot%20(292).png) | ![Dark Mode](./Temp/Screenshot%20(291).png) |  
 
 ### 📌 Automated Attendance Tracking  
 Enhances efficiency by verifying attendance through:  
 - A **4-digit check-in code**  
 - **Location proximity** or **school Wi-Fi connection**  
 
-<div style="display: flex; justify-content: center; gap: 20px; margin-top: 10px;">
-  <img src="./Temp/Screenshot%20(296).png" alt="Attendance Code" style="width: 45%; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2);" />
-  <img src="./Temp/Screenshot%20(287).png" alt="Verification Screen" style="width: 45%; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2);" />
-</div>  
+| Attendance Code | Verification Screen |  
+|----------------|--------------------|  
+| ![Attendance Code](./Temp/Screenshot%20(296).png) | ![Verification Screen](./Temp/Screenshot%20(287).png) |  
 
 ### ✅ Administrator Check-in Management  
 Admins can monitor and validate check-ins efficiently using the same **4-digit code + location/Wi-Fi verification** system.  
 
-<div style="display: flex; justify-content: center; gap: 20px; margin-top: 10px;">
-  <img src="./Temp/Screenshot%20(294).png" alt="Admin Check-ins" style="width: 45%; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2);" />
-  <img src="./Temp/Screenshot%20(297).png" alt="Check-in Logs" style="width: 45%; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2);" />
-</div>  
+| Create Check-ins | Check-in Logs |  
+|----------------|-------------|  
+| ![Admin Check-ins](./Temp/Screenshot%20(294).png) | ![Check-in Logs](./Temp/Screenshot%20(297).png) |  
 
-### 🪪 Consolidated Profile Section
-A place to switch modes and logout. 
 
-<div style="display: flex; justify-content: center; gap: 20px; margin-top: 10px;">
-  <img src="./Temp/Screenshot 2024-05-29 123312.png" alt="Admin Check-ins" style="width: 45%; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2);" />
-  <img src="./Temp/Screenshot 2024-05-29 123317.png" alt="Check-in Logs" style="width: 45%; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2);" />
-</div>  
+
+Here’s the improved version formatted for GitHub’s Markdown:  
+
+---
+
+### 🪪 Consolidated Profile Section  
+A place to switch modes and log out.  
+
+| Profile View | Logout Option |  
+|-------------|--------------|  
+| ![Profile View](./Temp/Screenshot%202024-05-29%20123312.png) | ![Logout Option](./Temp/Screenshot%202024-05-29%20123317.png) |  
+
 
 ### 📁 Centralized Storage & Communication  
 A unified platform for **club files, meeting schedules, and announcements**, ensuring streamlined communication.  
 
-<div style="display: flex; justify-content: center; margin-top: 10px;">
-  <img src="./Temp/Screenshot%20(289).png" alt="Centralized Storage" style="width: 60%; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2);" />
-</div>  
+![Centralized Storage](./Temp/Screenshot%20(289).png)  
+
 
 
 ## Technologies
