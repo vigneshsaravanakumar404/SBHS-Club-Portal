@@ -1,11 +1,13 @@
 # SBHS Club Portal
 
-## Introduction
+## Introduction  
 
-The SBHS Club Portal is a web application designed to efficiently manage data for over 50 clubs and 3,000+ students at South Brunswick High School. It automates club attendance tracking, centralizes storage for club files, meeting schedules, and announcements, and integrates seamlessly with the school's Google accounts for easy access and management.
-<div style="display: flex; justify-content: center; margin-top: 10px;">
-  <img src="./Temp/Screenshot%20(289).png" alt="Centralized Storage" style="width: 60%; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2);" />
-</div>  
+The SBHS Club Portal is a web application designed to efficiently manage data for over 50 clubs and 3,000+ students at South Brunswick High School. It automates club attendance tracking, centralizes storage for club files, meeting schedules, and announcements, and integrates seamlessly with the school's Google accounts for easy access and management.  
+
+<p align="center">
+  <img src="./Temp/Screenshot%20(289).png" alt="Centralized Storage" width="60%">
+</p>
+
 
 ## Table of Contents
 
